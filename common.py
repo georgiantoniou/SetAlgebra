@@ -5,7 +5,7 @@ class Configuration:
         self.__dict__[key] = value
     def shortname(self):
         l = []
-        if hasattr(self, 'hdsearch_freq'):
-            l.append("freq={}".format(self.hdsearch_freq))
-        l.append("qps={}".format(self.hdsearch_qps))
+        if hasattr(self, 'setalgebra_freq'):
+            l.append("freq={}".format(self.setalgebra_freq))
+        l.append("qps={}".format(self.setalgebra_qps))
         return '-'.join(l)

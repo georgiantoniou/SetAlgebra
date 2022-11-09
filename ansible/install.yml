@@ -1,25 +1,25 @@
 ---
-- name: Install HDSearch
+- name: Install Setalgebra
   hosts: midtier
   tasks:    
-  - name: Install HDSearch if not exists
+  - name: Install SetAlgebra if not exists
     unarchive: 
-      src: ~/HDSearch.tgz 
+      src: ~/SetAlgebra.tgz 
       dest: ~/
   - name: Set Up Docker Curl
-    command: ~/HDSearch/scripts/set-up-docker.sh
+    command: ~/SetAlgebra/scripts/set-up-docker.sh
   - name: Make Space to Commit Image
-    command: ~/HDSearch/scripts/change-storage-location-docker.sh
+    command: ~/SetAlgebra/scripts/change-storage-location-docker.sh
 
-- name: Execute HDSearch Container 
+- name: Execute SetAlgebra Container 
   hosts:
   - midtier
   #- bucket
   #- client
-  tags: compose_up_hdsearch
+  tags: compose_up_setalgebra
   tasks:
     - name: Change to docker group 
       command: sudo newgrp docker
     
-    - name: Compose Up HDSearch
-      command: ~/HDSearch/scripts/docker-compose-up.sh
+    - name: Compose Up SetAlgebra
+      command: ~/SetAlgebra/scripts/docker-compose-up.sh

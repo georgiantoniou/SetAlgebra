@@ -2,27 +2,6 @@
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
-get_HDSearch () {
-
-  if [[ ! -d "microsuite/" ]]; then
-  
-    mkdir microsuite
-   
-  fi
-
-  if [[ ! -d "microsuite/HDSearch" ]]; then
-  
-    pushd microsuite 
-    git clone https://github.com/ucy-xilab/MicroSuite.git
-    popd
-
-  fi
-
-  cp Dockerfile ./microsuite
-  cp docker-compose.yml ./microsuite
-
-}
-
 install_dep () {
   #sudo apt update
   sudo apt-add-repository ppa:ansible/ansible -y
@@ -32,9 +11,9 @@ install_dep () {
 }
 
 build () {
-  #get_HDSearch
+  
   pushd ~
-  tar -czf HDSearch.tgz HDSearch
+  tar -czf SetAlgebra.tgz SetAlgebra
   popd
  }	
 

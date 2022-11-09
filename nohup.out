@@ -3553,3 +3553,496 @@ ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 DATASET=/home/setalge
 ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 IP_FILE_PATH=/users/ganton12/SetAlgebra/microsuite/lookup_servers_IP.txt" --tags "copy_ip_file" ansible/setalgebra.yml
 ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 BUCKET_SERVERS=4 IP_FILE_PATH=lookup_servers_IP.txt IP=0.0.0.0 PORT=50054 NETWORK_THREADS=1 DISPATCH_THREADS=1 RESPONSE_THREADS=1 CORES=2" --tags "run_midtier" ansible/setalgebra.yml
 ansible-playbook -v -i hosts -e "ITERATION=0" --tags "run_profiler" ansible/profiler.yml
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: Could not match supplied host pattern, ignoring: memcached
+
+PLAY [Set uncore frequency] ****************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+
+Connection to node1 closed.
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+
+PLAY [Run remote profiler] *****************************************************
+
+PLAY [Kill remote profiler] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Get the PID of running process] ******************************************
+changed: [node1] => {"changed": true, "cmd": "ps -few | grep profiler | awk '{print $2}'", "delta": "0:00:00.026848", "end": "2022-11-09 01:25:49.501134", "rc": 0, "start": "2022-11-09 01:25:49.474286", "stderr": "", "stderr_lines": [], "stdout": "6207\n6209", "stdout_lines": ["6207", "6209"]}
+
+TASK [Kill remote profiler] ****************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+failed: [node1] (item=6207) => {"ansible_loop_var": "item", "changed": true, "cmd": "sudo kill 6207", "delta": "0:00:00.011615", "end": "2022-11-09 01:25:49.767364", "item": "6207", "msg": "non-zero return code", "rc": 1, "start": "2022-11-09 01:25:49.755749", "stderr": "kill: (6207): No such process", "stderr_lines": ["kill: (6207): No such process"], "stdout": "", "stdout_lines": []}
+failed: [node1] (item=6209) => {"ansible_loop_var": "item", "changed": true, "cmd": "sudo kill 6209", "delta": "0:00:00.011768", "end": "2022-11-09 01:25:49.931018", "item": "6209", "msg": "non-zero return code", "rc": 1, "start": "2022-11-09 01:25:49.919250", "stderr": "kill: (6209): No such process", "stderr_lines": ["kill: (6209): No such process"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+PLAY RECAP *********************************************************************
+node1                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+
+Connection to node1 closed.
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Kill bucket server] ******************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [node1] => {"changed": true, "cmd": "sudo docker exec beb1bab3da43 sudo pkill -f intersection_server", "delta": "0:00:00.148111", "end": "2022-11-09 01:25:54.452385", "rc": 0, "start": "2022-11-09 01:25:54.304274", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Kill midtier] ************************************************************
+changed: [node1] => {"changed": true, "cmd": "sudo docker exec beb1bab3da43 sudo pkill -f mid_tier_server", "delta": "0:00:00.102307", "end": "2022-11-09 01:25:55.689448", "rc": 0, "start": "2022-11-09 01:25:55.587141", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Copy Midtier] ************************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [node1] => {"changed": true, "cmd": "sudo docker cp /users/ganton12/SetAlgebra/microsuite/MicroSuite/src/SetAlgebra/union_service/service/mid_tier_server.cc beb1bab3da43:/MicroSuite/src/SetAlgebra/union_service/service/mid_tier_server.cc", "delta": "0:00:00.290754", "end": "2022-11-09 01:26:13.328197", "rc": 0, "start": "2022-11-09 01:26:13.037443", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Make Midtier] ************************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [node1] => {"changed": true, "cmd": "sudo docker exec -w /MicroSuite/src/SetAlgebra/union_service/service beb1bab3da43 make", "delta": "0:00:00.114046", "end": "2022-11-09 01:26:15.784812", "rc": 0, "start": "2022-11-09 01:26:15.670766", "stderr": "", "stderr_lines": [], "stdout": "make: Nothing to be done for 'all'.", "stdout_lines": ["make: Nothing to be done for 'all'."]}
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Copy Client] *************************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [node1] => {"changed": true, "cmd": "sudo docker cp /users/ganton12/SetAlgebra/microsuite/MicroSuite/src/SetAlgebra/load_generator/load_generator_open_loop.cc beb1bab3da43:/MicroSuite/src/SetAlgebra/load_generator/load_generator_open_loop.cc", "delta": "0:00:00.296688", "end": "2022-11-09 01:26:18.380159", "rc": 0, "start": "2022-11-09 01:26:18.083471", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Make Client] *************************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [node1] => {"changed": true, "cmd": "sudo docker exec -w /MicroSuite/src/SetAlgebra/load_generator beb1bab3da43 make", "delta": "0:00:04.040881", "end": "2022-11-09 01:26:24.737707", "rc": 0, "start": "2022-11-09 01:26:20.696826", "stderr": "", "stderr_lines": [], "stdout": "g++ -std=c++11 -O3 -mavx2 -mavx -fopenmp  -DMKL_ILP64 -m64 -I/opt/intel/mkl/include -I../ -I/usr/local/include -pthread -O3 -I../ -g -Wall -fopenmp -I../  -c -o load_generator_open_loop.o load_generator_open_loop.cc\ng++ ../protoc_files/union.pb.o ../protoc_files/union.grpc.pb.o helper_files/loadgen_union_client_helper.o ../union_service/service/helper_files/timing.o ../union_service/service/helper_files/utils.o load_generator_open_loop.o -O3 -o load_generator_open_loop -L/usr/local/lib `pkg-config --libs grpc++ grpc` -lprotobuf -lpthread -I /usr/local/include -lflann -fopenmp -L/usr/lib64 -lstdc++ -lssl -lcrypto -fopenmp -Wl,--start-group /opt/intel/mkl/lib/intel64/libmkl_intel_ilp64.a /opt/intel/mkl/lib/intel64/libmkl_gnu_thread.a /opt/intel/mkl/lib/intel64/libmkl_core.a -Wl,--end-group -lgomp -lpthread -lm -ldl -I../", "stdout_lines": ["g++ -std=c++11 -O3 -mavx2 -mavx -fopenmp  -DMKL_ILP64 -m64 -I/opt/intel/mkl/include -I../ -I/usr/local/include -pthread -O3 -I../ -g -Wall -fopenmp -I../  -c -o load_generator_open_loop.o load_generator_open_loop.cc", "g++ ../protoc_files/union.pb.o ../protoc_files/union.grpc.pb.o helper_files/loadgen_union_client_helper.o ../union_service/service/helper_files/timing.o ../union_service/service/helper_files/utils.o load_generator_open_loop.o -O3 -o load_generator_open_loop -L/usr/local/lib `pkg-config --libs grpc++ grpc` -lprotobuf -lpthread -I /usr/local/include -lflann -fopenmp -L/usr/lib64 -lstdc++ -lssl -lcrypto -fopenmp -Wl,--start-group /opt/intel/mkl/lib/intel64/libmkl_intel_ilp64.a /opt/intel/mkl/lib/intel64/libmkl_gnu_thread.a /opt/intel/mkl/lib/intel64/libmkl_core.a -Wl,--end-group -lgomp -lpthread -lm -ldl -I../"]}
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Connection to node1 closed.
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Run bucket server] *******************************************************
+changed: [node1] => {"ansible_job_id": "369528672039.7321", "changed": true, "finished": 0, "results_file": "/users/ganton12/.ansible_async/369528672039.7321", "started": 1}
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Run bucket server] *******************************************************
+changed: [node1] => {"ansible_job_id": "296097584708.7478", "changed": true, "finished": 0, "results_file": "/users/ganton12/.ansible_async/296097584708.7478", "started": 1}
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Run bucket server] *******************************************************
+changed: [node1] => {"ansible_job_id": "731811233757.7633", "changed": true, "finished": 0, "results_file": "/users/ganton12/.ansible_async/731811233757.7633", "started": 1}
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Run bucket server] *******************************************************
+changed: [node1] => {"ansible_job_id": "302779537400.7787", "changed": true, "finished": 0, "results_file": "/users/ganton12/.ansible_async/302779537400.7787", "started": 1}
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Copy IP file] ************************************************************
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [node1] => {"changed": true, "cmd": "sudo docker cp /users/ganton12/SetAlgebra/microsuite/lookup_servers_IP.txt beb1bab3da43:/MicroSuite/src/SetAlgebra/union_service/service/lookup_servers_IP.txt", "delta": "0:00:00.235737", "end": "2022-11-09 01:28:43.367391", "rc": 0, "start": "2022-11-09 01:28:43.131654", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 39, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+[WARNING]: While constructing a mapping from
+/users/ganton12/SetAlgebra/ansible/setalgebra.yml, line 61, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+PLAY [Kill bucket server] ******************************************************
+
+PLAY [Run bucket server] *******************************************************
+
+PLAY [Copy IP file] ************************************************************
+
+PLAY [Copy Midtier] ************************************************************
+
+PLAY [Compile Midtier] *********************************************************
+
+PLAY [Copy Client] *************************************************************
+
+PLAY [Compile Client] **********************************************************
+
+PLAY [Kill midtier] ************************************************************
+
+PLAY [Run midtier] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Run midtier] *************************************************************
+changed: [node1] => {"ansible_job_id": "468283582483.8242", "changed": true, "finished": 0, "results_file": "/users/ganton12/.ansible_async/468283582483.8242", "started": 1}
+
+PLAY [Get dataset] *************************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Using /users/ganton12/SetAlgebra/ansible.cfg as config file
+
+PLAY [Run remote profiler] *****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Run remote profiler] *****************************************************
+changed: [node1] => {"ansible_job_id": "107958800008.8403", "changed": true, "finished": 0, "results_file": "/users/ganton12/.ansible_async/107958800008.8403", "started": 1}
+
+PLAY [Kill remote profiler] ****************************************************
+
+PLAY RECAP *********************************************************************
+node1                      : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+INFO:root:python3 ./profiler.py -n node1 start
+INFO:root:python3 ./profiler.py -n node1 stop
+INFO:root:python3 ./profiler.py -n node1 report -d /users/ganton12/data/delete/turbo=False-kernelconfig=baseline-hyperthreading=False-qps=1-0/setalgebra
+Connection to node1 closed.
+ansible-playbook -v -i hosts -e "MSR_VALUE=0x1414"  ansible/configure.yml
+irtaaaaa
+ansible-playbook -v -i hosts -e "" --tags "kill_profiler" ansible/profiler.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43" --tags "kill_midtier,kill_bucket" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 MIDTIER_FILE_PATH=/users/ganton12/SetAlgebra/microsuite/MicroSuite/src/SetAlgebra/union_service/service/mid_tier_server.cc" --tags "copy_midtier" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 MIDTIER_FILE_PATH=/MicroSuite/src/SetAlgebra/union_service/service" --tags "compile_midtier" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 CLIENT_FILE_PATH=/users/ganton12/SetAlgebra/microsuite/MicroSuite/src/SetAlgebra/load_generator/load_generator_open_loop.cc" --tags "copy_client" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 CLIENT_FILE_PATH=/MicroSuite/src/SetAlgebra/load_generator" --tags "compile_client" ansible/setalgebra.yml
+IRTAAAAAAAA sto bucket server giat den leitourga
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 DATASET=/home/setalgebra_shrad00.txt IP=0.0.0.0 PORT=50050 THREADS=1 ID=0 NUM_BUCKETS=4 CORES=3" --tags "run_bucket" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 DATASET=/home/setalgebra_shrad01.txt IP=0.0.0.0 PORT=50051 THREADS=1 ID=1 NUM_BUCKETS=4 CORES=4" --tags "run_bucket" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 DATASET=/home/setalgebra_shrad02.txt IP=0.0.0.0 PORT=50052 THREADS=1 ID=2 NUM_BUCKETS=4 CORES=5" --tags "run_bucket" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 DATASET=/home/setalgebra_shrad03.txt IP=0.0.0.0 PORT=50053 THREADS=1 ID=3 NUM_BUCKETS=4 CORES=6" --tags "run_bucket" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 IP_FILE_PATH=/users/ganton12/SetAlgebra/microsuite/lookup_servers_IP.txt" --tags "copy_ip_file" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "CONTAINER_ID=beb1bab3da43 BUCKET_SERVERS=4 IP_FILE_PATH=lookup_servers_IP.txt IP=0.0.0.0 PORT=50054 NETWORK_THREADS=1 DISPATCH_THREADS=1 RESPONSE_THREADS=1 CORES=2" --tags "run_midtier" ansible/setalgebra.yml
+ansible-playbook -v -i hosts -e "ITERATION=0" --tags "run_profiler" ansible/profiler.yml

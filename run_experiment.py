@@ -364,7 +364,6 @@ def run_single_experiment(root_results_dir, name_prefix, client_conf, midtier_co
     # prepare profiler, memcached, and mcperf agents
     fix_midtier(container_id)
     fix_client(container_id)
-    
     run_remote(midtier_conf, bucket_conf)
     
     #fix profiler source code
@@ -391,19 +390,19 @@ def run_single_experiment(root_results_dir, name_prefix, client_conf, midtier_co
     with open(client_results_path_name, 'w') as fo:
         for l in sshProcess.stdout:
             fo.write(l+'\n')
-    exit()
+    
     # cleanup
     kill_remote()
     kill_profiler()
     
 
 def run_multiple_experiments(root_results_dir, batch_name, system_conf, client_conf, midtier_conf, bucket_conf, iter):
-    #configure_setalgebra_node(system_conf)
+    configure_setalgebra_node(system_conf)
     #start container
-    #start_remote()
-    #time.sleep(500)
-    #prepare_dataset() 
-    #prepare_query_set()
+    start_remote()
+    time.sleep(500)
+    prepare_dataset() 
+    prepare_query_set()
 
     
     name_prefix = "turbo={}-kernelconfig={}-hyperthreading={}-".format(system_conf['turbo'], system_conf['kernelconfig'],system_conf['ht'])
@@ -460,7 +459,7 @@ def main(argv):
         'bucket_id': ['0', '1', '2', '3'],
         'num_buckets': '4',
         'cores': ['3', '4', '5', '6'],
-        'perf_counters': '54'
+        'perf_counters': '15' #'54'
     })
    
     logging.getLogger('').setLevel(logging.INFO)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/HDSearch/microsuite
+cd ~/SetAlgebra/microsuite
 sudo docker compose up &>/dev/null &
 
 sudo docker ps | grep hdsearch

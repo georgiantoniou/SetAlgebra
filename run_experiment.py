@@ -367,7 +367,7 @@ def run_single_experiment(root_results_dir, name_prefix, client_conf, midtier_co
     run_remote(midtier_conf, bucket_conf)
     
     #fix profiler source code
-    run_profiler(idx)
+    run_profiler((idx))
     time.sleep(60)
    
     exec_command("python3 ./profiler.py -n node1 start")
@@ -419,7 +419,7 @@ def run_multiple_experiments(root_results_dir, batch_name, system_conf, client_c
         temp_iter=iter
         iters_cycle=math.ceil(float(bucket_conf.perf_counters)/4.0)
         for it in range(iters_cycle*(iter),iters_cycle*(iter+1)):
-            run_single_experiment(root_results_dir, name_prefix, instance_conf, midtier_conf, bucket_conf, it)
+            run_single_experiment(root_results_dir, name_prefix, instance_conf, midtier_conf, bucket_conf, (it))
             time.sleep(120)
 
 def main(argv):
@@ -459,7 +459,7 @@ def main(argv):
         'bucket_id': ['0', '1', '2', '3'],
         'num_buckets': '4',
         'cores': ['3', '4', '5', '6'],
-        'perf_counters': '15' #'54'
+        'perf_counters': '54'
     })
    
     logging.getLogger('').setLevel(logging.INFO)

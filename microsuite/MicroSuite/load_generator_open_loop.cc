@@ -184,6 +184,9 @@ class UnionServiceClient {
                     char* cmd = new char[s.length() + 1];
                     std::strcpy(cmd, s.c_str());
                     ExecuteShellCommand(cmd);
+                    std::cout << "Call Status Error Code: " << call->status.error_code() << "\n";
+                    std::cout << "Call Status Error Message: " << call->status.error_message() << "\n";
+                    std::cout << "Call Status Error Details: " << call->status.error_details() << "\n";
                     std::cout << "Load generator failed\n";
                     CHECK(false, "");
                 }
@@ -252,11 +255,58 @@ class UnionServiceClient {
 
             double center = 1000000.0/(double)(qps);
             double curr_time = (double)GetTimeInMicro();
-            double exit_time = curr_time + (double)(time_duration*1000000.0);
-
+            double exit_time = curr_time + (double)(15*1000000);
+            uint64_t overall_queries = 1000 * 15;
+           
             std::default_random_engine generator;
             std::poisson_distribution<int> distribution(center);
             double next_time = distribution(generator) + curr_time;
+           
+           //!!!!!!!WarmUp Phase!!!!!!
+           
+            while (curr_time < exit_time) 
+            {
+                if (curr_time >= next_time) {
+                    num_requests->AtomicallyIncrementCount();
+                    if((num_requests->AtomicallyReadCount() == 1) || ((GetTimeInSec() - interval_start_time) >= 10)){
+                        util_requests->AtomicallyIncrementCount();
+                        union_client.Union(query,
+                                true,
+                                false);
+                        interval_start_time = GetTimeInSec();
+                    } else {
+                        union_client.Union(query,
+                                false,
+                                false);  
+                    }
+                    next_time = distribution(generator) + curr_time;
+                    query_id = rand() % queries_size;
+                    query = queries[query_id];
+                }
+                curr_time = (double)GetTimeInMicro();
+            }
+
+            // Reset Timing Statistics
+            global_stats_mutex.lock();
+            ResetMetaStats(*global_stats,number_of_intersection_servers);
+            global_stats_mutex.unlock();
+           
+            //Reset requests counters
+            num_requests->AtomicallyResetCount();
+            responses_recvd->AtomicallyResetCount();
+           
+            //Print counters to validate
+            float achieved_qps = (float)responses_recvd->AtomicallyReadCount()/(float)time_duration;
+            std::cout << "Requests: " << num_requests->AtomicallyReadCount() << "\n" ;
+            std::cout << "Responses: " << responses_recvd->AtomicallyReadCount() << "\n";
+            std::cout << "!!!!!!!End of Warmup Period!!!!!!!" << " \n";
+           
+           
+           curr_time = (double)GetTimeInMicro();
+           exit_time = curr_time + (double)(time_duration*1000000.0);
+           next_time = distribution(generator) + curr_time;
+           query_id = rand() % queries_size;
+           std::vector<Wordids> query = queries[query_id];
 
             while (curr_time < exit_time) 
             {

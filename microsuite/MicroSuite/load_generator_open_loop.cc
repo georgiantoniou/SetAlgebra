@@ -288,7 +288,7 @@ class UnionServiceClient {
 
             // Reset Timing Statistics
             global_stats_mutex.lock();
-            ResetMetaStats(*global_stats,number_of_intersection_servers);
+            ResetMetaStats(global_stats,number_of_intersection_servers);
             global_stats_mutex.unlock();
            
             //Reset requests counters
@@ -306,7 +306,7 @@ class UnionServiceClient {
            exit_time = curr_time + (double)(time_duration*1000000.0);
            next_time = distribution(generator) + curr_time;
            query_id = rand() % queries_size;
-           std::vector<Wordids> query = queries[query_id];
+           query = queries[query_id];
 
             while (curr_time < exit_time) 
             {
@@ -330,7 +330,7 @@ class UnionServiceClient {
                 curr_time = (double)GetTimeInMicro();
             }
 
-            float achieved_qps = (float)responses_recvd->AtomicallyReadCount()/(float)time_duration;
+            achieved_qps = (float)responses_recvd->AtomicallyReadCount()/(float)time_duration;
             std::cout << "Requests: " << num_requests->AtomicallyReadCount() << "\n" ;
             std::cout << "Responses: " << responses_recvd->AtomicallyReadCount() << "\n";
 
@@ -347,8 +347,8 @@ class UnionServiceClient {
           
             PrintGlobalStats(*global_stats,
                     number_of_intersection_servers,
-                    (util_requests-1),
-                    responses_recvd);
+                    (util_requests->AtomicallyReadCount()-1),
+                    responses_recvd->AtomicallyReadCount());
             std::cout.flush();
             std::cout << std::endl;
           

@@ -268,27 +268,30 @@ void PrintGlobalStats(const GlobalStats &global_stats,
     std::cout << "\n Get bucket responses time \n";
     PrintTime(get_intersection_srv_responses);
     uint64_t intersection_size = get_intersection_srv_responses.size();
-    std::cout << "Average Intersection Time(ms): " << (double)std::accumulate(get_intersection_srv_responses.begin(), get_intersection_srv_responses.end(), 0)/(double)intersection_size/(double)1000 << " \n";
+    std::cout << "Average Intersection Response Time(ms): " << (double)std::accumulate(get_intersection_srv_responses.begin(), get_intersection_srv_responses.end(), 0)/(double)intersection_size/(double)1000 << " \n";
   
     std::cout << "\n Create bucket request time ";
     PrintTime(create_intersection_srv_req);
     std::cout << "\n Unpack bucket request time ";
     PrintTime(unpack_intersection_srv_req);
     uint64_t unpack_intersection_size = unpack_intersection_srv_req.size();
-    std::cout << "Average Union Time(ms): " << (double)std::accumulate(unpack_intersection_srv_req.begin(), unpack_intersection_srv_req.end(), 0)/(double)unpack_intersection_size/(double)1000 << " \n";
+    std::cout << "Average Intersection Unpack Time(ms): " << (double)std::accumulate(unpack_intersection_srv_req.begin(), unpack_intersection_srv_req.end(), 0)/(double)unpack_intersection_size/(double)1000 << " \n";
   
     std::cout << "\n Calculate knn time \n";
     PrintTime(calculate_intersection_time);
     uint64_t calculate_intersection_size = calculate_intersection_time.size();
-    std::cout << "Average Union Time(ms): " << (double)std::accumulate(calculate_intersection_time.begin(), calculate_intersection_time.end(), 0)/(double)calculate_intersection_size/(double)1000 << " \n";
+    std::cout << "Average Calculate Intersection Time(ms): " << (double)std::accumulate(calculate_intersection_time.begin(), calculate_intersection_time.end(), 0)/(double)calculate_intersection_size/(double)1000 << " \n";
   
     std::cout << "\n Pack bucket response time ";
     PrintTime(pack_intersection_srv_resp);
     uint64_t pack_intersection_size = pack_intersection_srv_resp.size();
-    std::cout << "Average Union Time(ms): " << (double)std::accumulate(pack_intersection_srv_resp.begin(), pack_intersection_srv_resp.end(), 0)/(double)pack_intersection_size/(double)1000 << " \n";
+    std::cout << "Average Pack Intersection Time(ms): " << (double)std::accumulate(pack_intersection_srv_resp.begin(), pack_intersection_srv_resp.end(), 0)/(double)pack_intersection_size/(double)1000 << " \n";
   
     std::cout << "\n Unpack bucket response time ";
     PrintTime(unpack_intersection_srv_resp);
+    uint64_t unpack_intersection_size = unpack_intersection_srv_resp.size();
+    std::cout << "Average Unpack Intersection Time(ms): " << (double)std::accumulate(unpack_intersection_srv_resp.begin(), unpack_intersection_srv_resp.end(), 0)/(double)unpack_intersection_size/(double)1000 << " \n";        
+        
     std::cout << "\n Pack union response time ";
     PrintTime(pack_union_resp);
     std::cout << "\n Unpack union response time ";
